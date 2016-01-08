@@ -1415,7 +1415,12 @@
     assert.expect(3);
     var collection = new (Backbone.Collection.extend({
       comparator: function(a, b) {
-        return a.get('a') > b.get('a') ? 1 : (a.get('a') < b.get('a') ? -1 : 0);
+        if (a.get('a') > b.get('a')) {
+          return 1;
+        } else if (a.get('a') < b.get('a')) {
+          return -1;
+        }
+        return 0;
       }
     }))([{id: 1}, {id: 2}, {id: 3}]);
     collection.on('sort', function() { assert.ok(true); });
